@@ -1,6 +1,6 @@
 <template>
     <ScrollPanel
-            style=" height: 100vh; background: var(--surface-700)"
+            style=" height: calc(100vh - 58px); background: var(--surface-700)"
             :pt="{
                         bary: 'hover:bg-primary-400  bg-primary-800 opacity-100'
                     }"

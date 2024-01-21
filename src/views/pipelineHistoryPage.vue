@@ -1,4 +1,5 @@
 <template>
+  <nav-bar></nav-bar>
 
     <div>
         <div class="grid  m-0">
@@ -18,9 +19,7 @@
 <script setup lang="ts">
 import ListHistoryItem from "@/components/ListHistoryItem.vue";
 import PipeLineLogDisplay from "@/components/PipeLineLogDisplay.vue";
-
-
-
+import NavBar from "@/components/NavBar.vue";
 
 
 </script>

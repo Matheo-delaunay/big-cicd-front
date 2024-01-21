@@ -1,5 +1,17 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
+import type {LightPipelineModel} from "../model/LightPipelineModel";
+
+const props = defineProps<{
+  pipeline: LightPipelineModel
+}>();
+const getDate = computed(() => {
+  const date = new Date(props.pipeline.pushDate.toString());
+  const day = date.getDay().toString().padStart(2, "0");
+  const month = date.getMonth().toString().padStart(2, "0");
+  const year = date.getFullYear().toString().padStart(4, "0");
+  return `${day}/${month}/${year}`;
+});
 
 const status = ref("DONE");
 const isDone = computed(() => {
@@ -24,14 +36,14 @@ const setStyle = computed(() => ({
       <div class="grid">
         <div class="col-12" style="color: white">
           <div class="pr-3" style="text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden">
-            Ici un long titre peut-être trop long pour tenir sur une ligne on sait pas
+            {{ props.pipeline.repository }} : {{ props.pipeline.ref }}
           </div>
         </div>
         <div class="col-6" style="color: var(--gray-400)">
-          21/01/2024
+          {{ getDate }}
         </div>
         <div class="col-6" style="color: var(--gray-400)">
-          01:18:00
+          {{ props.pipeline.time }}
         </div>
       </div>
     </div>

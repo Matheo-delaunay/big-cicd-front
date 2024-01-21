@@ -9,7 +9,8 @@
     "baseUrl": "./vue-project",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "lib": ["ES2017"]
   },
 
   "references": [

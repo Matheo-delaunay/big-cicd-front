@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-import PipelineHistoryPage from "@/views/pipelineHistoryPage.vue";
+import PipelineHistoryPage from "@/views/PipelineHistoryPage.vue";
 </script>

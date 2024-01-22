@@ -9,10 +9,16 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/LoginPage.vue")
     },
     {
-        path: "/pipeline",
+        path: "/pipeline/:id",
         name: "PipeLineLog",
-        component: () => import("../views/LoginPage.vue")
+        component: () => import("../views/PipelineHistoryPage.vue")
     },
+    {
+        path: "/launcher",
+        name: "launcher",
+        component: () => import("../views/LaunchPage.vue")
+    },
+
 ];
 
 export {routes};

@@ -1,4 +1,4 @@
-import type {JobModel} from "./jobModel";
+import type {JobModel} from "./JobModel";
 
 export interface PipelineModel {
     id: String;

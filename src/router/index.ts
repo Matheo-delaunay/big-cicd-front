@@ -1,7 +1,6 @@
 import {createRouter, createWebHistory} from "vue-router";
 import type RouteRecordRaw from "vue-router";
 
-// @ts-ignore
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
@@ -10,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: "/pipeline/:id",
-        name: "PipeLineLog",
+        name: 'pipeline',
         component: () => import("../views/PipelineHistoryPage.vue")
     },
     {

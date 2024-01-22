@@ -5,6 +5,7 @@ import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 
 
+
 const email = ref("");
 const password = ref("");
 const regexEmail = /^[\w][\w0-9_@]{2,14}$/
@@ -12,6 +13,21 @@ const errorEmail = computed(() => {
   if (regexEmail.test(email.value) && password.value.length > 0)
     return true
 })
+
+const gitHubURL = () => {
+    const rootURl = `${import.meta.env.VITE_GITHUB}/login/oauth/authorize`;
+
+    const params = {
+        client_id: import.meta.env.VITE_GITHUB_CLIENT_ID,
+        redirect_uri: import.meta.env.VITE_CICD_FRONT,
+        scope: "user:email",
+        state: import.meta.env.VITE_GITHUB_STATE,
+    };
+
+    const urlSearchParams = new URLSearchParams(params);
+
+    return `${rootURl}?${urlSearchParams.toString()}`;
+}
 
 </script>
 
@@ -27,6 +43,7 @@ const errorEmail = computed(() => {
         <Password :feedback="false" placeholder="Password" v-model="password" toggleMask/>
         <Button :disabled="!errorEmail">Submit</Button>
       </form>
+        <a :href="gitHubURL()">GitHub</a>
     </div>
   </div>
 </template>

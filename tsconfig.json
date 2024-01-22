@@ -10,7 +10,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "lib": ["ES2017"]
+    "lib": ["ES2017", "DOM"],
   },
 
   "references": [

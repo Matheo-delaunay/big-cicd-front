@@ -1,7 +1,8 @@
 <template>
-  <PipelineHistoryPage/>
+  <RouterView/>
 </template>
 
 <script setup lang="ts">
-import PipelineHistoryPage from "@/views/PipelineHistoryPage.vue";
+import {RouterView} from "vue-router";
+
 </script>

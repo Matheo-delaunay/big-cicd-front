@@ -6,23 +6,21 @@ import NavBar from "@/components/NavBar.vue";
 import Button from 'primevue/button';
 
 
-
-
 const value1 = ref("");
 const value2 = ref("");
-const isNotSelected = computed(()=>{
-  if ((value1.value === "" ) || (value2.value === "" )){
+const isNotSelected = computed(() => {
+  if ((value1.value === "") || (value2.value === "")) {
     return true
   } else {
     return false
   }
 })
 const cities = ref([
-  { name: 'New York', code: 'NY' },
-  { name: 'Rome', code: 'RM' },
-  { name: 'London', code: 'LDN' },
-  { name: 'Istanbul', code: 'IST' },
-  { name: 'Paris', code: 'PRS' }
+  {name: 'New York', code: 'NY'},
+  {name: 'Rome', code: 'RM'},
+  {name: 'London', code: 'LDN'},
+  {name: 'Istanbul', code: 'IST'},
+  {name: 'Paris', code: 'PRS'}
 ])
 
 
@@ -64,6 +62,7 @@ const cities = ref([
   width: 130px;
   align-self: center;
 }
+
 .card {
   margin-top: 30vh;
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
-import type {LightPipelineModel} from "../model/LightPipelineModel";
+import type {LightPipelineModel} from "../models/LightPipelineModel";
 
 const props = defineProps<{
   pipeline: LightPipelineModel

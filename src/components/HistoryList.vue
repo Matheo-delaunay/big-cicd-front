@@ -7,7 +7,7 @@
                                 }"
     >
       <div v-for="pipeline in pipelines">
-        <HistoryItem :pipeline="pipeline"/>
+        <HistoryItem @click="$emit('load-pipeline', pipeline.id)" :pipeline="pipeline"/>
       </div>
     </ScrollPanel>
   </div>
@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import ScrollPanel from "primevue/scrollpanel";
-import type {LightPipelineModel} from "../model/LightPipelineModel";
+import type {LightPipelineModel} from "../models/LightPipelineModel";
 import {getPipelines} from "../services/pipeline.service";
 import HistoryItem from "@/components/HistoryItem.vue";
 

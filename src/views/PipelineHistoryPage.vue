@@ -39,9 +39,9 @@ import NavBar from "../components/NavBar.vue";
 import {useRoute} from "vue-router";
 
 const HistoryList = defineAsyncComponent(() => import('../components/HistoryList.vue'));
-const piplineId = ref(useRoute().query.id)
+const pipelineId = ref(useRoute().query.id)
 
-const loadedPipeline = computed(() => piplineId.value !== undefined && piplineId.value !== "");
+const loadedPipeline = computed(() => pipelineId.value !== undefined && pipelineId.value !== "");
 </script>
 
 

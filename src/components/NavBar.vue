@@ -1,23 +1,32 @@
 <script setup lang="ts">
 import TabMenu from 'primevue/tabmenu';
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import router from "@/router";
+import {useRoute} from "vue-router";
 
 const items = ref([
-  {label: 'Launch'},
-  {label: 'History'},
+  {label: 'Launch', route: '/launcher'},
+  {label: 'History', route: "/pipeline"},
 ]);
-const activateIndex = ref()
-
 const onChange = (e) => {
   e.index===0 ? router.push({name: 'launcher'}) : router.push({name: 'pipeline'})
+    return e.index;
 }
+const activeMenuItemIndex = ref(0)
+
+watch(
+    () => useRoute().path,
+    (updatedPath) => {
+        activeMenuItemIndex.value = items.value.findIndex((item) => updatedPath.startsWith(item.route));
+    },
+    { immediate: true }
+);
 </script>
 
 <template>
 
   <TabMenu style="background: var(--surface-700)"
-           :active-index="activateIndex"
+           :active-index="activeMenuItemIndex"
            :model="items"
            @tab-change="onChange"
            :pt="{

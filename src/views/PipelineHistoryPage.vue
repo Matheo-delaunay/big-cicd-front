@@ -6,7 +6,7 @@
       <div class="col-4 p-0 ">
         <Suspense>
           <template #default>
-            <HistoryList @load-pipeline="(id) => pipelineId = id"/>
+            <HistoryList/>
           </template>
           <template #fallback>
             <ProgressSpinner class="flex align-items-center"/>
@@ -16,7 +16,7 @@
       <div class="col-8 p-0" style="background: var(--surface-700);">
         <Suspense v-if="loadedPipeline">
           <template #default>
-            <PipeLineLogDisplay :pipelineId="pipelineId"/>
+            <PipeLineLogDisplay :pipelineId="$route.query.id"/>
           </template>
           <template #fallback>
             <ProgressSpinner class="flex align-items-center"/>
@@ -36,11 +36,12 @@ import PipeLineLogDisplay from "../components/PipeLineLogDisplay.vue";
 import ProgressSpinner from "primevue/progressspinner";
 import {computed, defineAsyncComponent, ref} from "vue";
 import NavBar from "../components/NavBar.vue";
+import {useRoute} from "vue-router";
 
 const HistoryList = defineAsyncComponent(() => import('../components/HistoryList.vue'));
-const pipelineId = ref<string>();
+const piplineId = ref(useRoute().query.id)
 
-const loadedPipeline = computed(() => pipelineId.value !== undefined && pipelineId.value !== "");
+const loadedPipeline = computed(() => piplineId.value !== undefined && piplineId.value !== "");
 </script>
 
 

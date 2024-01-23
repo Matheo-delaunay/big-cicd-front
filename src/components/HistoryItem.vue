@@ -3,7 +3,8 @@ import {computed, ref} from "vue";
 import type {LightPipelineModel} from "../models/LightPipelineModel";
 
 const props = defineProps<{
-  pipeline: LightPipelineModel
+  pipeline: LightPipelineModel,
+  isSelected: boolean
 }>();
 const getDate = computed(() => {
   const date = new Date(props.pipeline.date.toString());
@@ -25,10 +26,11 @@ const setStatus = computed(() => ({
 const setStyle = computed(() => ({
   'color': isDone.value ? 'var(--primary-color)' : 'var(--orange-400)'
 }));
+
 </script>
 
 <template>
-  <div class="grid p-3">
+  <div class="grid p-3"  :style="{ backgroundColor: props.isSelected ? 'var(--surface-700)' : undefined }">
     <div class="col-2 flex justify-content-center align-items-center">
       <i class="pi" :class="setStatus" style="font-size: 2rem" :style="setStyle"></i>
     </div>

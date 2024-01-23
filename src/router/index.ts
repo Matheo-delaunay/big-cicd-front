@@ -1,14 +1,14 @@
 import {createRouter, createWebHistory} from "vue-router";
 import type RouteRecordRaw from "vue-router";
 
-const routes: Array<RouteRecordRaw> = [
+const routes: Array<RouteRecordRaw.RouteRecordRaw> = [
     {
         path: "/",
         name: "home",
         component: () => import("../views/LoginPage.vue")
     },
     {
-        path: "/pipeline/:id",
+        path: "/pipeline",
         name: 'pipeline',
         component: () => import("../views/PipelineHistoryPage.vue")
     },

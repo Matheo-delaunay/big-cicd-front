@@ -7,7 +7,11 @@
                                 }"
     >
       <div v-for="pipeline in pipelines">
-        <HistoryItem @click="$emit('load-pipeline', pipeline.id)" :pipeline="pipeline"/>
+        <HistoryItem
+            @click="router.push({name: 'pipeline', query: {id: pipeline.id}})"
+            :pipeline="pipeline"
+            :isSelected ="pipeline.id==$route.query.id"
+        />
       </div>
     </ScrollPanel>
   </div>
@@ -18,6 +22,8 @@ import ScrollPanel from "primevue/scrollpanel";
 import type {LightPipelineModel} from "../models/LightPipelineModel";
 import {getPipelines} from "../services/pipeline.service";
 import HistoryItem from "@/components/HistoryItem.vue";
+import router from "@/router";
+
 
 const pipelines: LightPipelineModel[] = await getPipelines()
 </script>

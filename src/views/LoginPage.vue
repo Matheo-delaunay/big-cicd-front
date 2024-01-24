@@ -3,7 +3,9 @@ import {computed, ref} from "vue";
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
-
+import {useRouter} from "vue-router";
+import {getUser} from "@/services/user.service";
+import {useUserStore} from "@/stores/UserStore";
 
 
 const email = ref("");
@@ -15,20 +17,34 @@ const errorEmail = computed(() => {
 })
 
 const gitHubURL = () => {
-    const rootURl = `${import.meta.env.VITE_GITHUB}/login/oauth/authorize`;
+  const rootURl = `${import.meta.env.VITE_GITHUB}/login/oauth/authorize`;
 
-    const params = {
-        client_id: import.meta.env.VITE_GITHUB_CLIENT_ID,
-        redirect_uri: import.meta.env.VITE_CICD_FRONT,
-        scope: "read:user",
-        state: import.meta.env.VITE_GITHUB_STATE,
-    };
+  const params = {
+    client_id: import.meta.env.VITE_GITHUB_CLIENT_ID,
+    redirect_uri: import.meta.env.VITE_CICD_FRONT,
+    scope: "read:user",
+    state: import.meta.env.VITE_GITHUB_STATE,
+  };
 
-    const urlSearchParams = new URLSearchParams(params);
+  const urlSearchParams = new URLSearchParams(params);
 
-    return `${rootURl}?${urlSearchParams.toString()}`;
+  return `${rootURl}?${urlSearchParams.toString()}`;
 }
 
+const logUser = async () => {
+  const router = useRouter();
+  await router.isReady();
+  const code = router.currentRoute.value.query.code as string;
+  if (code) {
+    const user = await getUser(code);
+    const userStore = useUserStore();
+    userStore.accessToken = user.accessToken;
+    userStore.id = user.id;
+    await router.push('/');
+  }
+}
+
+await logUser()
 </script>
 
 <template>
@@ -43,7 +59,7 @@ const gitHubURL = () => {
         <Password :feedback="false" placeholder="Password" v-model="password" toggleMask/>
         <Button :disabled="!errorEmail">Submit</Button>
       </form>
-        <a :href="gitHubURL()">GitHub</a>
+      <a :href="gitHubURL()">GitHub</a>
     </div>
   </div>
 </template>

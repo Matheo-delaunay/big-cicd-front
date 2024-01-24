@@ -5,6 +5,6 @@ export interface PipelineModel {
     ref: String;
     user: String;
     repository: String;
-    pushDate: String;
+    date: String;
     jobs: JobModel[];
 }

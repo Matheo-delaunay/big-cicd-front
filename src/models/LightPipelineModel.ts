@@ -2,6 +2,6 @@ export interface LightPipelineModel {
     id: String;
     ref: String;
     repository: String;
-    pushDate: String;
+    date: String;
     time: Number;
 }

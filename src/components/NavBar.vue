@@ -15,9 +15,9 @@ const onChange = (e) => {
 const activeMenuItemIndex = ref(0)
 
 watch(
-    () => useRoute().path,
+    () => useRoute(),
     (updatedPath) => {
-        activeMenuItemIndex.value = items.value.findIndex((item) => updatedPath.startsWith(item.route));
+        activeMenuItemIndex.value = items.value.findIndex((item) => updatedPath.path.startsWith(item.route));
     },
     { immediate: true }
 );

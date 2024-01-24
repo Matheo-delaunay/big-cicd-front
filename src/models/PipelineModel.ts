@@ -6,6 +6,6 @@ export interface PipelineModel {
     user: String;
     repository: String;
     date: String;
-    time: Number;
+    time: Number | null;
     jobs: JobModel[];
 }

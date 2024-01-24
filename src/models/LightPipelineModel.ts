@@ -3,5 +3,5 @@ export interface LightPipelineModel {
     ref: String;
     repository: String;
     date: String;
-    time: Number;
+    time: Number | null;
 }

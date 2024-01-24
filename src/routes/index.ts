@@ -1,8 +1,8 @@
 import {createRouter, createWebHistory} from "vue-router";
 import PipelineHistoryPage from "../views/PipelineHistoryPage.vue";
 import {useUserStore} from "../stores/UserStore";
-import {getAccessToken, getUserInfo} from "../services/github.service";
 import LoginPage from "../views/LoginPage.vue";
+import {getUser} from "../services/user.service";
 
 
 const router = createRouter({
@@ -18,10 +18,10 @@ router.beforeEach(async (to, from) => {
     if (!userStore.isLoggedIn) {
         const code : string = to.query.code as string;
         if (code) {
-            const accessToken = await getAccessToken(code);
-            userStore.accessToken = accessToken.access_token;
-            const userInfo = await getUserInfo(accessToken.access_token);
-            userStore.id = userInfo.id;
+            const user = await getUser(code)
+            userStore.accessToken = user.accessToken;
+            userStore.id = user.id;
+            return "/";
         }else if (to.path !== "/login") {
             return "/login";
         }

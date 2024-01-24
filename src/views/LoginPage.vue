@@ -20,7 +20,7 @@ const gitHubURL = () => {
     const params = {
         client_id: import.meta.env.VITE_GITHUB_CLIENT_ID,
         redirect_uri: import.meta.env.VITE_CICD_FRONT,
-        scope: "user:email",
+        scope: "read:user",
         state: import.meta.env.VITE_GITHUB_STATE,
     };
 

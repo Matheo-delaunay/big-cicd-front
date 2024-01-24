@@ -1,5 +1,6 @@
 <template>
   <div class="p-0">
+    {{id}}
     <ScrollPanel
         style=" height: calc(100vh - 58px); background: var(--surface-900)"
         :pt="{
@@ -9,11 +10,11 @@
       <div v-for="pipeline in pipelines">
         <HistoryItem
             @click="() => {
-              $emit('load-pipeline', pipeline.id);
-              selectedId=pipeline.id
+              router.push({name: 'pipeline', query: {id: pipeline.id}});
+              $emit('load-pipeline', id);
             }"
             :pipeline="pipeline"
-            :isSelected ="pipeline.id==selectedId"
+            :isSelected ="pipeline.id==id"
         />
       </div>
     </ScrollPanel>
@@ -26,10 +27,18 @@ import type {LightPipelineModel} from "../models/LightPipelineModel";
 import {getPipelines} from "../services/pipeline.service";
 import HistoryItem from "@/components/HistoryItem.vue";
 import {ref, watch} from "vue";
-
-const selectedId = ref()
+import {useRouter} from "vue-router";
 
 const pipelines: LightPipelineModel[] = await getPipelines()
+
+const id = ref()
+const router = useRouter()
+await router.isReady()
+watch(() => router.currentRoute.value, (value)=>{
+  id.value = value.query.id
+})
+
+
 </script>
 
 <style scoped>

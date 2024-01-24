@@ -8,7 +8,7 @@ const props = defineProps<{
 const getDate = computed(() => {
   const date = new Date(props.pipeline.date.toString());
   const day = date.getDate().toString().padStart(2, "0");
-  const month = (date.getMonth()+1).toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const year = date.getFullYear().toString().padStart(4, "0");
   return `${day}/${month}/${year}`;
 });

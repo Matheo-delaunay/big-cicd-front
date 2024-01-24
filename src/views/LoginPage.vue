@@ -4,8 +4,8 @@ import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import {useRouter} from "vue-router";
-import {getUser} from "@/services/user.service";
-import {useUserStore} from "@/stores/UserStore";
+import {getUser} from "../services/user.service";
+import {useUserStore} from "../stores/UserStore";
 
 
 const email = ref("");

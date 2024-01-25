@@ -1,17 +1,35 @@
 <script setup lang="ts">
 import TabMenu from 'primevue/tabmenu';
-import {ref} from "vue";
+import type {TabMenuChangeEvent} from 'primevue/tabmenu';
+import {ref, watch} from "vue";
+import router from "../router";
+import {useRoute} from "vue-router";
 
 const items = ref([
-  {label: 'Launch'},
-  {label: 'History'},
+  {label: 'Launch', route: '/'},
+  {label: 'History', route: "/pipeline"},
 ]);
+const onChange = (e: TabMenuChangeEvent) => {
+  e.index===0 ? router.push({name: 'launcher'}) : router.push({name: 'pipeline'})
+    return e.index;
+}
+const activeMenuItemIndex = ref(0)
+
+watch(
+    () => useRoute(),
+    (updatedPath) => {
+        activeMenuItemIndex.value = items.value.findIndex((item) => updatedPath.path.startsWith(item.route));
+    },
+    { immediate: true }
+);
 </script>
 
 <template>
 
   <TabMenu style="background: var(--surface-700)"
+           :active-index="activeMenuItemIndex"
            :model="items"
+           @tab-change="onChange"
            :pt="{
         root: {style: 'height: 58px'},
         menu: {style: 'background: var(--surface-900)'},
@@ -24,7 +42,5 @@ const items = ref([
 </template>
 
 <style scoped>
-:deep(.allaction) {
-  background: var(--surface-700)
-}
+
 </style>

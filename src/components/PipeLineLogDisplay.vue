@@ -41,7 +41,7 @@ import AccordionTab from "primevue/accordiontab";
 import ScrollPanel from "primevue/scrollpanel";
 import Accordion from "primevue/accordion";
 import {getPipeline} from "../services/pipeline.service";
-import {ref, watch} from "vue";
+import {computed, ref, watch} from "vue";
 import ErrorPage from "@/views/ErrorPage.vue";
 
 const props = defineProps<{
@@ -52,9 +52,8 @@ const pipeline = ref(await getPipeline(props.pipelineId))
 watch(props, async (oldProps, newProps) => {
   pipeline.value = await getPipeline(props.pipelineId)
 })
-const error = ref(pipeline.value == undefined)
-console.log(error.value)
-
+//const error = ref(pipeline.value == undefined)
+const error = computed(() => pipeline.value == undefined)
 </script>
 
 <style scoped>

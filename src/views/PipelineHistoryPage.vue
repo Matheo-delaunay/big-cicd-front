@@ -6,7 +6,7 @@
       <div class="col-4 p-0 ">
         <Suspense>
           <template #default>
-            <HistoryList @load-pipeline="(id) => pipelineId = id"/>
+            <HistoryList/>
           </template>
           <template #fallback>
             <ProgressSpinner class="flex align-items-center"/>
@@ -34,13 +34,19 @@
 <script setup lang="ts">
 import PipeLineLogDisplay from "../components/PipeLineLogDisplay.vue";
 import ProgressSpinner from "primevue/progressspinner";
-import {computed, defineAsyncComponent, ref} from "vue";
+import {computed, defineAsyncComponent, ref, onMounted, watch} from "vue";
 import NavBar from "../components/NavBar.vue";
+import router from "@/router";
 
 const HistoryList = defineAsyncComponent(() => import('../components/HistoryList.vue'));
 const pipelineId = ref()
-
+onMounted(()=>{
+  pipelineId.value = router.currentRoute.value.query.id
+})
 const loadedPipeline = computed(() => pipelineId.value !== undefined && pipelineId.value !== "");
+watch(() => router.currentRoute.value, (value)=>{
+  pipelineId.value = value.query.id
+})
 
 </script>
 

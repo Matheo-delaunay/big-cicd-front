@@ -6,8 +6,8 @@
                     }"
   >
     <h3 class=""></h3>
-    <div class="card">
-      <h2 class="p-3 " style="color: var(--primary-color)">Pipeline {{ pipeline.id }}</h2>
+    <div class="card"  v-if="!error">
+      <h2 class="p-3" style="color: var(--primary-color)">Pipeline {{ pipeline.id }}</h2>
       <Accordion :multiple="true" class="p-3">
         <AccordionTab v-for="job in pipeline.jobs" :key="job.name" :header="job.name"
                       :pt="{
@@ -28,6 +28,11 @@
         </AccordionTab>
       </Accordion>
     </div>
+    <div v-else>
+      <ErrorPage>
+
+      </ErrorPage>
+    </div>
   </ScrollPanel>
 </template>
 
@@ -37,15 +42,18 @@ import ScrollPanel from "primevue/scrollpanel";
 import Accordion from "primevue/accordion";
 import {getPipeline} from "../services/pipeline.service";
 import {ref, watch} from "vue";
+import ErrorPage from "@/views/ErrorPage.vue";
 
 const props = defineProps<{
   pipelineId: string
 }>();
-const pipeline = ref(await getPipeline(props.pipelineId))
 
+const pipeline = ref(await getPipeline(props.pipelineId))
 watch(props, async (oldProps, newProps) => {
   pipeline.value = await getPipeline(props.pipelineId)
 })
+const error = ref(pipeline.value == undefined)
+console.log(error.value)
 
 </script>
 

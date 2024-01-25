@@ -1,6 +1,7 @@
 import axios from "axios";
 import type {LightPipelineModel} from "../models/LightPipelineModel";
 import type {PipelineModel} from "../models/PipelineModel";
+import router from "../router";
 
 export async function getPipelines(): Promise<LightPipelineModel[]> {
     return axios.get(`${import.meta.env.VITE_CICD_BACK}/v1/pipelines`)
@@ -9,5 +10,8 @@ export async function getPipelines(): Promise<LightPipelineModel[]> {
 
 export async function getPipeline(id: string): Promise<PipelineModel> {
     return axios.get(`${import.meta.env.VITE_CICD_BACK}/v1/pipelines/${id}`)
-        .then(res => res.data);
+        .then(res => res.data)
+        .catch(error =>{
+                router.push
+        });
 }

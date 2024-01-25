@@ -46,6 +46,7 @@ const pipeline = ref(await getPipeline(props.pipelineId))
 watch(props, async (oldProps, newProps) => {
   pipeline.value = await getPipeline(props.pipelineId)
 })
+
 </script>
 
 <style scoped>

@@ -16,7 +16,7 @@
       <div class="col-8 p-0" style="background: var(--surface-700);">
         <Suspense v-if="loadedPipeline">
           <template #default>
-            <PipeLineLogDisplay :pipelineId="pipelineId"/>
+            <PipeLineLogDisplay :pipelineId="pipelineId!"/>
           </template>
           <template #fallback>
             <ProgressSpinner class="flex align-items-center"/>

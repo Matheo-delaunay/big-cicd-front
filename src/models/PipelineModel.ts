@@ -3,8 +3,9 @@ import type {JobModel} from "./JobModel";
 export interface PipelineModel {
     id: String;
     ref: String;
-    user: String;
+    user: Number;
     repository: String;
-    pushDate: String;
+    date: String;
+    time: Number | null;
     jobs: JobModel[];
 }

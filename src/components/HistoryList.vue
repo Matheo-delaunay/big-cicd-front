@@ -23,7 +23,7 @@
 import ScrollPanel from "primevue/scrollpanel";
 import type {LightPipelineModel} from "../models/LightPipelineModel";
 import {getPipelines} from "../services/pipeline.service";
-import HistoryItem from "@/components/HistoryItem.vue";
+import HistoryItem from "../components/HistoryItem.vue";
 import {onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 

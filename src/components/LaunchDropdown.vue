@@ -9,7 +9,7 @@ const props = defineProps({
 
 const options: any[] = await props.options;
 const value = ref<string>();
-const id = getCurrentInstance()?.uid;
+const id = getCurrentInstance()?.uid.toString() ?? "dd";
 </script>
 
 <template>
@@ -19,7 +19,6 @@ const id = getCurrentInstance()?.uid;
                   root: { style: 'width: 20vw' },
                   }"
     />
-    <!-- TODO ask Selima aria-describedby="dd-error"-->
     <label :for="id">{{ props.label }}</label>
   </span>
 </template>

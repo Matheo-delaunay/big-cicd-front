@@ -3,17 +3,12 @@ import type RouteRecordRaw from "vue-router";
 
 const routes: Array<RouteRecordRaw.RouteRecordRaw> = [
     {
-        path: "/",
-        name: "home",
-        component: () => import("../views/PipelineHistoryPage.vue")
-    },
-    {
         path: "/pipeline",
         name: 'pipeline',
         component: () => import("../views/PipelineHistoryPage.vue")
     },
     {
-        path: "/launcher",
+        path: "/",
         name: "launcher",
         component: () => import("../views/LaunchPage.vue")
     },

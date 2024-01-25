@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import TabMenu from 'primevue/tabmenu';
+import type {TabMenuChangeEvent} from 'primevue/tabmenu';
 import {ref, watch} from "vue";
-import router from "@/router";
+import router from "../router";
 import {useRoute} from "vue-router";
 
 const items = ref([
-  {label: 'Launch', route: '/launcher'},
+  {label: 'Launch', route: '/'},
   {label: 'History', route: "/pipeline"},
 ]);
-const onChange = (e) => {
+const onChange = (e: TabMenuChangeEvent) => {
   e.index===0 ? router.push({name: 'launcher'}) : router.push({name: 'pipeline'})
     return e.index;
 }

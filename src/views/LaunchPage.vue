@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import {computed, defineAsyncComponent, ref} from 'vue';
-import NavBar from "@/components/NavBar.vue";
+import NavBar from "../components/NavBar.vue";
 import Button from "primevue/button";
 import ProgressSpinner from "primevue/progressspinner";
 import {getTags} from "../services/registry.service";
 import {useRouter} from "vue-router";
 import {startDeployment} from "../services/pipeline.service";
+import {useUserStore} from "../stores/UserStore";
 
 const LaunchDropdown = defineAsyncComponent(() => import('../components/LaunchDropdown.vue'));
 const repositories = async () => ['imt-framework-back', 'imt-framework-front'];
@@ -20,7 +21,7 @@ const startCd = async () => {
     isLoading.value = false;
     return;
   }
-  startDeployment(repository.value!, tag.value!, 0).then( //TODO add user id
+  startDeployment(repository.value!, tag.value!, useUserStore().id ?? 0).then(
       (id: string) => {
         useRouter().push({name: 'pipeline', query: {id: id}});
       }

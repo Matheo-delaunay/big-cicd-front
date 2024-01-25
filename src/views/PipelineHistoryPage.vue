@@ -36,7 +36,7 @@ import PipeLineLogDisplay from "../components/PipeLineLogDisplay.vue";
 import ProgressSpinner from "primevue/progressspinner";
 import {computed, defineAsyncComponent, ref, onMounted, watch} from "vue";
 import NavBar from "../components/NavBar.vue";
-import router from "@/router";
+import router from "../router";
 
 const HistoryList = defineAsyncComponent(() => import('../components/HistoryList.vue'));
 const pipelineId = ref()

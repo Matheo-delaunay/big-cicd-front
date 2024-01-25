@@ -42,7 +42,7 @@ import ScrollPanel from "primevue/scrollpanel";
 import Accordion from "primevue/accordion";
 import {getPipeline} from "../services/pipeline.service";
 import {computed, ref, watch} from "vue";
-import ErrorPage from "@/views/ErrorPage.vue";
+import ErrorPage from "../views/ErrorPage.vue";
 
 const props = defineProps<{
   pipelineId: string

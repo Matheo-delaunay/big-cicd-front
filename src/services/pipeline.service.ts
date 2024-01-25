@@ -15,3 +15,11 @@ export async function getPipeline(id: string): Promise<PipelineModel> {
                 router.push
         });
 }
+
+export async function startDeployment(repository: String, tag: String, userId: Number): Promise<string> {
+    return axios.post(`${import.meta.env.VITE_CICD_BACK}/v1/pipelines/repository/${repository}/tag/${tag}`, null, {
+        headers: {
+            "X-User-Id": userId.toString()
+        }
+    }).then(res => res.data);
+}

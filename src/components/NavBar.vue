@@ -11,14 +11,13 @@ const items = ref([
 ]);
 const onChange = (e: TabMenuChangeEvent) => {
   e.index===0 ? router.push({name: 'launcher'}) : router.push({name: 'pipeline'})
-    return e.index;
 }
 const activeMenuItemIndex = ref(0)
 
 watch(
     () => useRoute(),
     (updatedPath) => {
-        activeMenuItemIndex.value = items.value.findIndex((item) => updatedPath.path.startsWith(item.route));
+        activeMenuItemIndex.value = items.value.findIndex((item) => updatedPath.path == item.route);
     },
     { immediate: true }
 );

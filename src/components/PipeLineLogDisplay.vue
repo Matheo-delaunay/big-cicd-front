@@ -41,7 +41,7 @@ import AccordionTab from "primevue/accordiontab";
 import ScrollPanel from "primevue/scrollpanel";
 import Accordion from "primevue/accordion";
 import {getPipeline} from "../services/pipeline.service";
-import {computed, onBeforeUnmount, ref, watch} from "vue";
+import {computed, onBeforeUnmount, onMounted, onUpdated, ref, watch} from "vue";
 import ErrorPage from "../views/ErrorPage.vue";
 import {Client} from "@stomp/stompjs";
 
@@ -49,26 +49,40 @@ const props = defineProps<{
     pipelineId: string
 }>();
 const pipeline = ref(await getPipeline(props.pipelineId))
-const client = new Client();
+const client = ref();
 const subscriptionId = ref()
-client.brokerURL = 'wss://cicd-back.nathanaudvard.fr/ws'
-client.activate()
-watch(props, async (oldProps, newProps) => {
-    pipeline.value = await getPipeline(props.pipelineId)
-    if (subscriptionId.value != undefined) {
-        console.log('unsubscribed')
-        client.unsubscribe(subscriptionId.value.id)
-    }
+
+const WSConnect = ()=>{
     console.log('subscription')
-    subscriptionId.value = client.subscribe('/topic/pipeline/' + newProps.pipelineId, message => {
+    subscriptionId.value = client.value.subscribe('/topic/pipeline/' + props.pipelineId, message => {
         console.log(message.body)
         pipeline.value.jobs.push(JSON.parse(message.body))
     })
+}
+const WSDisconnect = ()=>{
+    console.log('unsubscribed')
+    client.value.unsubscribe(subscriptionId.value.id)
+}
+onMounted(()=>{
+    client.value = new Client()
+    client.value.brokerURL = 'wss://cicd-back.nathanaudvard.fr/ws'
+    client.value.activate()
+    WSConnect()
 })
+
+onUpdated(()=>{
+    if (subscriptionId.value != undefined) {
+        WSDisconnect()
+    }
+    WSConnect()
+})
+watch(props, async (oldProps, newProps) => {
+    pipeline.value = await getPipeline(props.pipelineId)
+})
+
 onBeforeUnmount(()=>{
     if (subscriptionId.value != undefined) {
-        console.log('unsubscribed')
-        client.unsubscribe(subscriptionId.value.id)
+        WSDisconnect()
     }
 })
 const error = computed(() => pipeline.value == undefined)

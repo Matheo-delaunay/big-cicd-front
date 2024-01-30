@@ -54,7 +54,7 @@ const subscribeInstance = ref()
 
 const subscribe = ()=>{
     console.log('subscribed')
-    subscribeInstance.value = client.value.subscribe('/topic/pipeline/' + props.pipelineId, message => {
+    subscribeInstance.value = client.value.subscribe('/topic/pipeline/' + props.pipelineId, (message: { body: string; }) => {
         console.log(message.body)
         pipeline.value.jobs.push(JSON.parse(message.body))
     })

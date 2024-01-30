@@ -13,6 +13,7 @@ const repositories = async () => ['imt-framework-back', 'imt-framework-front'];
 const repository = ref<string>();
 const tag = ref<string>();
 const isLoading = ref<boolean>(false);
+const userStore = useUserStore()
 
 const isButtonShown = computed(() => repository.value != null && tag.value != null);
 const startCd = async () => {
@@ -21,7 +22,7 @@ const startCd = async () => {
     isLoading.value = false;
     return;
   }
-  startDeployment(repository.value!, tag.value!, useUserStore().id ?? 0).then(
+  startDeployment(repository.value!, tag.value!, userStore.id ?? 0).then(
       (id: string) => {
         useRouter().push({name: 'pipeline', query: {id: id}});
       }

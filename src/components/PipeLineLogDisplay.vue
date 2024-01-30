@@ -50,39 +50,40 @@ const props = defineProps<{
 }>();
 const pipeline = ref(await getPipeline(props.pipelineId))
 const client = ref();
-const subscriptionId = ref()
+const subscribeInstance = ref()
 
-const WSConnect = ()=>{
-    console.log('subscription')
-    subscriptionId.value = client.value.subscribe('/topic/pipeline/' + props.pipelineId, message => {
+const subscribe = ()=>{
+    console.log('subscribed')
+    subscribeInstance.value = client.value.subscribe('/topic/pipeline/' + props.pipelineId, message => {
         console.log(message.body)
         pipeline.value.jobs.push(JSON.parse(message.body))
     })
 }
-const WSDisconnect = ()=>{
+const unsubscribe = ()=>{
     console.log('unsubscribed')
-    client.value.unsubscribe(subscriptionId.value.id)
+    client.value.unsubscribe(subscribeInstance.value.id)
 }
 onMounted(()=>{
-    client.value = new Client()
-    client.value.brokerURL = 'wss://cicd-back.nathanaudvard.fr/ws'
+    client.value = new Client({
+        brokerURL: 'wss://cicd-back.nathanaudvard.fr/ws',
+        onConnect: subscribe
+    })
     client.value.activate()
-    WSConnect()
 })
 
 onUpdated(()=>{
-    if (subscriptionId.value != undefined) {
-        WSDisconnect()
+    if (subscribeInstance.value != undefined) {
+        unsubscribe()
     }
-    WSConnect()
+    subscribe()
 })
 watch(props, async (oldProps, newProps) => {
     pipeline.value = await getPipeline(props.pipelineId)
 })
 
 onBeforeUnmount(()=>{
-    if (subscriptionId.value != undefined) {
-        WSDisconnect()
+    if (client.value != undefined) {
+        client.value.deactivate()
     }
 })
 const error = computed(() => pipeline.value == undefined)

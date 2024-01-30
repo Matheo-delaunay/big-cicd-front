@@ -4,7 +4,6 @@ import NavBar from "../components/NavBar.vue";
 import Button from "primevue/button";
 import ProgressSpinner from "primevue/progressspinner";
 import {getTags} from "../services/registry.service";
-import {useRouter} from "vue-router";
 import {startDeployment} from "../services/pipeline.service";
 import {useUserStore} from "../stores/UserStore";
 
@@ -13,6 +12,8 @@ const repositories = async () => ['imt-framework-back', 'imt-framework-front'];
 const repository = ref<string>();
 const tag = ref<string>();
 const isLoading = ref<boolean>(false);
+import router from "../router";
+const userStore = useUserStore()
 
 const isButtonShown = computed(() => repository.value != null && tag.value != null);
 const startCd = async () => {
@@ -21,9 +22,9 @@ const startCd = async () => {
     isLoading.value = false;
     return;
   }
-  startDeployment(repository.value!, tag.value!, useUserStore().id ?? 0).then(
+  startDeployment(repository.value!, tag.value!, userStore.id ?? 0).then(
       (id: string) => {
-        useRouter().push({name: 'pipeline', query: {id: id}});
+          router.push({name: 'pipeline', query: {id: id}});
       }
   );
 };

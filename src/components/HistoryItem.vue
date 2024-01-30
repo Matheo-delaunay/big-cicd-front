@@ -14,18 +14,23 @@ const getDate = computed(() => {
   return `${day}/${month}/${year}`;
 });
 
-const status = ref("DONE");
-const isDone = computed(() => {
-  return status.value === "DONE";
-});
+const status = ref(props.pipeline.status)
 const setStatus = computed(() => ({
-  'pi-check': isDone.value,
-  'pi-spin': !isDone.value,
-  'pi-spinner': !isDone.value,
+  'pi-check': status.value == "Success",
+  'pi-spin': status.value != "Success",
+  'pi-spinner': status.value != "Success",
 }));
-const setStyle = computed(() => ({
-  'color': isDone.value ? 'var(--primary-color)' : 'var(--orange-400)'
-}));
+const setStyle = computed(() => {
+  if (status.value == "Success") {
+    return {'color': 'var(--primary-color)'}
+  } else if (status.value == "Failed") {
+    return {'color': 'var(--red-400)'}
+  } else {
+    return {'color': 'var(--orange-400)'}
+  }
+
+
+});
 
 </script>
 

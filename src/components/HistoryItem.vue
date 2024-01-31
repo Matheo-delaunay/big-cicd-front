@@ -17,8 +17,9 @@ const getDate = computed(() => {
 const status = ref(props.pipeline.status)
 const setStatus = computed(() => ({
   'pi-check': status.value == "Success",
-  'pi-spin': status.value != "Success",
-  'pi-spinner': status.value != "Success",
+  'pi-times': status.value == "Failed",
+  'pi-spin': status.value != "Success" && status.value != "Failed",
+  'pi-spinner': status.value != "Success" && status.value != "Failed",
 }));
 const setStyle = computed(() => {
   if (status.value == "Success") {

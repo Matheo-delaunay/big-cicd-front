@@ -14,17 +14,16 @@ const getDate = computed(() => {
   return `${day}/${month}/${year}`;
 });
 
-const status = ref(props.pipeline.status)
 const setStatus = computed(() => ({
-  'pi-check': status.value == "Success",
-  'pi-times': status.value == "Failed",
-  'pi-spin': status.value != "Success" && status.value != "Failed",
-  'pi-spinner': status.value != "Success" && status.value != "Failed",
+  'pi-check': props.pipeline.status == "Success",
+  'pi-times': props.pipeline.status == "Failed",
+  'pi-spin': props.pipeline.status != "Success" && props.pipeline.status != "Failed",
+  'pi-spinner': props.pipeline.status != "Success" && props.pipeline.status != "Failed",
 }));
 const setStyle = computed(() => {
-  if (status.value == "Success") {
+  if (props.pipeline.status == "Success") {
     return {'color': 'var(--primary-color)'}
-  } else if (status.value == "Failed") {
+  } else if (props.pipeline.status == "Failed") {
     return {'color': 'var(--red-400)'}
   } else {
     return {'color': 'var(--orange-400)'}

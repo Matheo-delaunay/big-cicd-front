@@ -14,6 +14,9 @@ const tag = ref<string>();
 const isLoading = ref<boolean>(false);
 import router from "../router";
 const userStore = useUserStore()
+const tags = computed(async () => {
+    return await getTags(repository.value!)
+} )
 
 const isButtonShown = computed(() => repository.value != null && tag.value != null);
 const startCd = async () => {
@@ -46,7 +49,7 @@ const startCd = async () => {
       </Suspense>
       <Suspense v-if="repository != null">
         <template #default>
-          <LaunchDropdown :label="'Select your version'" :options="getTags(repository!)"
+          <LaunchDropdown :label="'Select your version'" :options="tags"
                           @value="(event) => tag = event"/>
         </template>
         <template #fallback>

@@ -3,8 +3,8 @@ import type {LightPipelineModel} from "../models/LightPipelineModel";
 import type {PipelineModel} from "../models/PipelineModel";
 import router from "../router";
 
-export async function getPipelines(): Promise<LightPipelineModel[]> {
-    return axios.get(`${import.meta.env.VITE_CICD_BACK}/v1/pipelines`)
+export async function getPipelines(page?:number): Promise<LightPipelineModel[]> {
+    return axios.get(`${import.meta.env.VITE_CICD_BACK}/v1/pipelines`, {params: {page: page}})
         .then(res => res.data);
 }
 

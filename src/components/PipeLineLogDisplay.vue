@@ -7,7 +7,8 @@
     >
         <h3 class=""></h3>
         <div class="card" v-if="!error">
-            <h2 class="p-3" style="color: var(--primary-color)">Pipeline {{ pipeline.id }}</h2>
+            <h2 class="p-3" style="color: var(--primary-color)">Pipeline {{ pipeline.ref }}</h2>
+            <h4 class="p-2" style="color: var(--primary-color)">Id {{ pipeline.id }}</h4>
             <Accordion :multiple="true" class="p-3">
                 <AccordionTab v-for="job in pipeline.jobs" :key="job.name" :header="job.name"
                               :pt="{
